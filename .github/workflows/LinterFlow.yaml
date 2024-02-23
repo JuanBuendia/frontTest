@@ -17,7 +17,8 @@ jobs:
       - run: yarn
       - run: yarn lint
 
-  tsc:    
+  tsc:
+    runs-on: ubuntu-latest
     name: Check typescript
     steps:
       - uses: actions/checkout@v1
