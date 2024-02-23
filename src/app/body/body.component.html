@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-8">
+      <table class="table table-striped table-hover table-sm manito">
+        <thead>
+          <tr>
+            <th style="width: 5%;">Código</th>
+            <th style="width: 25%;">Nombre</th>
+            <th style="width: 20%;">Autor</th>
+            <th style="width: 5%;">Terminado</th>
+            <th style="width: 20%;">Descripción</th>
+            <th style="width: 5%;">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let myTask of taskArray; let indice = index" (click)="selectTask(myTask)"
+            [class.table-dark]="myTask==selectedTask">
+            <td>{{indice + 1}}</td>
+            <td>{{myTask.name}}</td>
+            <td>{{myTask.autor}}</td>
+            <td>{{myTask.estate}}</td>
+            <td>{{myTask.description}}</td>
+            <td>
+              <i class="far fa-trash-alt papeleraRoja" (click)="btnOpenModal(DeleteCar, myTask)"></i>
+              &nbsp;
+            </td>
+          </tr>
+          <tr>
+        </tbody>
+
+      </table>
+    </div>
+    <div class="col-4 bg-light">
+      <form>
+        <div class="mb-3 row">
+          <label class="col-sm-3 text-dark">Nombre</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control form-control-sm" id="marca" name="name"
+              [(ngModel)]="selectedTask.name">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 text-dark">Autor</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control form-control-sm" id="placa" name="autor"
+              [(ngModel)]="selectedTask.autor">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 text-dark">Completado</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control form-control-sm" id="modelo" name="estate"
+              [(ngModel)]="selectedTask.estate">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 text-dark">Descripción</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control form-control-sm" id="modelo" name="description"
+              [(ngModel)]="selectedTask.description">
+          </div>
+        </div>
+
+        <div *ngIf="selectedTask.id == 0; then CreateTask; else UpdateTask"></div>
+
+        <ng-template #CreateTask>
+          <div class="row g-3 mt-1 align-items-center">
+            <div class="col-3"></div>
+            <div class="col-9">
+              <div class="d-grid gap-1 col-12">
+                <button class="btn-sm btn-dark" (click)="addTask()">Añadir Tarea</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #UpdateTask>
+          <div class="row g-3 mt-1 align-items-center">
+            <div class="col-3"></div>
+            <div class="col-9">
+              <div class="d-grid gap-1 col-12">
+                <button class="btn-sm btn-dark" (click)="resetTask()">Actualizar Tarea</button>
+                <button class="btn-sm btn-warning" (click)="resetTask()">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #DeleteCar>
+          <div class="modal-header bg-dark" style="padding: 5px; color: white;">
+            <h5 class="modal-title">{{modalTitle}}</h5>
+            <button type="button" class="btn-sm btn-danger" (click)="modalRef.hide()">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{modalBody}} <br> {{modalContent}}</p>
+          </div>
+          <div class="modal-footer" style="padding: 4px;">
+            <button class="btn btn-sm btn-danger btn-outline-danger" style="color: white;"
+              (click)="btnDeleteTask()">Eliminar</button>
+            <button class="btn btn-sm btn-dark" (click)="btnCancel()">Cancelar</button>
+          </div>
+        </ng-template>
+      </form>
+
+    </div>
+  </div>
+</div>
