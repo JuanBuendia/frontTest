@@ -3,7 +3,7 @@
 name: CI para Pull Request
 
 on: 
-  push:
+  pull_request:
   paths:
   - 'src/**'
 
