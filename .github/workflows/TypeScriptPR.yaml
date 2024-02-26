@@ -25,6 +25,8 @@ jobs:
       #     # list of files that changed across commits
       #     fetch-depth: 0
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
