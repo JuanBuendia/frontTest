@@ -9,12 +9,20 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
 
-  - name: Setup Angular Typescript
-    uses: actions/setup-node@v3
-    with:
-      node-version: 16.x
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Angular Typescript
+      with:
+        node-version: 16.x
+  
+  lint:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Super-Linter
+        uses: github/super-linter@v3.15.5
   
