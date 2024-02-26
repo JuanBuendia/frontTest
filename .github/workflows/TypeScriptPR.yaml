@@ -1,29 +1,29 @@
-##Testing typescript
+name: Lint
 
-name: CI para Pull Request
-
-on: 
-  pull_request:
-  paths:
-  - 'src/**'
+on:  [push]
 
 jobs:
   build:
-
+    name: Lint
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: read
+      # To report GitHub Actions status checks
+      statuses: write
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Angular Typescript
-        uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          node-version: 16.x
-  
-  lint:
-    
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Super-Linter
-        uses: github/super-linter@v3.15.5
-  
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
+          fetch-depth: 0
+
+      - name: Super-linter
+        uses: super-linter/super-linter@v6.2.0  # x-release-please-version
+        env:
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+...
