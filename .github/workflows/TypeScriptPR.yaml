@@ -6,6 +6,10 @@ jobs:
   build:
     name: Lint
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [ '16.x', '20.x' ]
 
     permissions:
       contents: read
@@ -14,16 +18,23 @@ jobs:
       statuses: write
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
+      #   with:
+      #     # super-linter needs the full git history to get the
+      #     # list of files that changed across commits
+      #     fetch-depth: 0
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          # super-linter needs the full git history to get the
-          # list of files that changed across commits
-          fetch-depth: 0
+          node-version: ${{ matrix.node-version}}
+      - run: npmi ci
+      - run: npm run build --if-present
+      - run: test   
 
       - name: Super-linter
         uses: super-linter/super-linter@v6.2.0  # x-release-please-version
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-...
