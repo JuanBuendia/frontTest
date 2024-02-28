@@ -2,6 +2,8 @@
 /* Stylelint recommended aproach to ignore a file */
 /* Remove if file not empty */
 
-/* stylelint-disable */
-a {}
-/* stylelint-enable */
+/* default gibberish block */
+a {
+    font-size: medium;
+}
+/* default gibberish block */
