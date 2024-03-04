@@ -3,7 +3,7 @@ name: Lint
 on:
   push:
     paths:
-      - 'src/*'    
+      - 'src/**'    
 
 jobs:
   build:
@@ -14,7 +14,7 @@ jobs:
       matrix:
         node-version: [ '16.x', '20.x' ]
 
-    # permissions: test test
+    # permissions:
       # contents: read
       # packages: read
         # To report GitHub Actions status checks
